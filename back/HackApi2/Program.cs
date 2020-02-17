@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Numpy;
+using Python.Runtime;
 
 namespace HackApi
 {
@@ -13,6 +15,10 @@ namespace HackApi
     {
         public static void Main(string[] args)
         {
+            // this call initializes numpy. it is necessary to do that before PythonEngine.BeginAllowThreads()
+            np.arange(1);
+            PythonEngine.BeginAllowThreads(); // <--- this is very important for a web server since all requests are on different threads
+
             CreateHostBuilder(args).Build().Run();
         }
 

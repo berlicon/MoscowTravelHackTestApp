@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Numpy;
 using Python.Runtime;
 
 namespace HackApi.Controllers
@@ -41,7 +42,7 @@ namespace HackApi.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            FileUtil.SaveTimeToFile();
+            //FileUtil.SaveTimeToFile();
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -56,18 +57,7 @@ namespace HackApi.Controllers
         [HttpPost("TestNDarray")]
         public string TestNDarray([FromBody] float[] input)
         {
-            //using (Py.GIL())
-            //{
-            //    try
-            //    {
-                    return ModelUtil.TestNDarray(input);
-            //    }
-            //    catch
-            //    {
-            //        Console.WriteLine("some exception here");
-            //    }
-            //}
-            //return "no";            
+            return ModelUtil.TestNDarray(input);
         }
 
         [HttpPost("predict")]
